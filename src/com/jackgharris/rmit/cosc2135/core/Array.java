@@ -13,6 +13,8 @@ public class Array {
     private String[] keys;
     //private integer count, stores the current count of entries within this array.
     private int count;
+    //private integer for auto assigned keys, increases when entries are added to the array and are used as a key when no key is provided
+    private int countPermanent;
 
     //**** ARRAY CONSTRUCTOR METHOD ****\\
     //this method is called when the array is created and accepts an object to use as the set object type for this array, arrays can only
@@ -25,6 +27,8 @@ public class Array {
         this.keys = new String[0];
         //finally we set our count to 0 ready to be counted up when entries are added
         this.count = 0;
+        //set the count permanent to 0 ready to be counted up as entries are added
+        this.countPermanent = 0;
     }
 
     //**** ADD OBJECT METHOD ****\\
@@ -39,7 +43,7 @@ public class Array {
                 //Generate one by using the current index as a key
                 if(key == null){
                     //if the key is null (not parsed), set the key to the current index count
-                    key = String.valueOf(this.count);
+                    key = String.valueOf(this.countPermanent);
                 }
                 //next check if we have room in our array to store this new entry, if so skip this, else run the expand Array private function
                 if (this.count >= this.values.length) {
@@ -52,6 +56,7 @@ public class Array {
                 this.keys[this.count] = key;
                 //finally we increase the count ready for the next entry
                 this.count++;
+                this.countPermanent++;
 
         }else{
             //else as specified above if we provided the wrong object type for storage we throw an ArrayStorageException
@@ -121,13 +126,24 @@ public class Array {
         return outcome;
     }
 
+    //**** GET ALL VALUES GETTER METHOD ****\\
+    //returns all the values in the array as a object
+    public Object[] getValues(){
+        return this.values;
+    }
+
+    //**** GET ALL KEYS GETTER METHOD ****\\
+    //returns all the keys in an array of strings
+    public String[] getKeys(){
+        return this.keys;
+    }
+
 
     //**** LENGTH GETTER METHOD ****\\
     //The length getter method can be called publicly and is used to return the current length of the array (this.count)
-    //We need to remember to remove 1 from the count as our count value starts from 1 where our array length should start at 0.
     public int length(){
-        //return the current count -1 (factoring in 0 being the first value)
-        return this.count-1;
+        //return the current count
+        return this.count;
     }
 
     //**** EXPAND ARRAY METHOD ****\\
@@ -138,14 +154,14 @@ public class Array {
 
         //create our new arrays that are the size of our current array +10
         //create new Objects array to store values
-        Object[] newValuesArray = new Object[this.values.length+10];
+        Object[] newValuesArray = new Object[this.values.length+1];
         //create new String array to store keys
-        String[] newKeysArray = new String[this.keys.length+10];
+        String[] newKeysArray = new String[this.keys.length+1];
 
         //next we create our integer counter
         int i = 0;
         //now we create a while loop and copy all the values from our original arrays into our two new expanded arrays
-        while(i < this.values.length){
+        while(i < this.count){
             //copy Values array at the current index iteration
             newValuesArray[i] = this.values[i];
             //copy the keys array at the current iteration
@@ -158,5 +174,44 @@ public class Array {
         this.keys = newKeysArray;
     }
 
+    //**** DELETE ARRAY METHOD ****\\
+    //Delete value method, takes a key String as input and checks if the key exists in the array, if so it will create tow new arrays and
+    //exclude the key from them, causing it to be deleted, this applies to both the key array and the values array
+    public void delete(String key){
+
+        //step one check if this is a valid key, if not skip this code
+        if(this.arrayKeyExists(key)) {
+            //next if we have a valid key to delete we need to create two new arrays to transfer all the values we are not deleting too.
+            //these need to be the same length as the main array -1 to account for the deleted value
+            Object[] newValues = new Object[this.values.length-1];
+            String[] newKeys = new String[this.keys.length-1];
+
+            //next we create two separate counters to track the count of each array, the new and the old
+            // i represents the old array number
+            int i  = 0;
+            // ii represents the new array number
+            int ii = 0;
+            //now we use our main original array counter to count over the main array keys
+            while(i < this.count){
+                //if the key does not match the key that we have provided for deletion then add them to the new array
+                if(!this.keys[i].matches(key)){
+                    //set the newKeys value to the old keys array for that index
+                    newKeys[ii] = this.keys[i];
+                    //set the newValues to the old values array value for that index
+                    newValues[ii] = this.values[i];
+                    //finally increase our new keys counter
+                    ii++;
+                }
+                //after we have performed the first check increase our counter and keep going until we have checked all our entries.
+                i++;
+            }
+            //finally we remove one from the array wide count and set the main arrays to the value of our new arrays with the value removed
+            this.count --;
+            //set the main values to our new values
+            this.values = newValues;
+            //set the main keys to our new keys
+            this.keys = newKeys;
+        }
+    }
 
 }
