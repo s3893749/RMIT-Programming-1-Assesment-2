@@ -7,7 +7,6 @@ import com.jackgharris.rmit.cosc2135.core.Array;
 import java.io.*;
 
 //**** START CLASS ****\\
-//refer to justification in Model class for justification on the use of inheritance for this class
 public class MessageModel{
 
     //Private Class Variables
