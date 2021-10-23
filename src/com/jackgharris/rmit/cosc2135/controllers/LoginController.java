@@ -6,43 +6,37 @@ package com.jackgharris.rmit.cosc2135.controllers;
 //**** IMPORT PACKAGES ****\\
 //Here we import all the relevant packages that we will be referencing, calling and accessing in this class.
 import com.jackgharris.rmit.cosc2135.core.Array;
-import com.jackgharris.rmit.cosc2135.core.Controller;
-import com.jackgharris.rmit.cosc2135.core.Kernel;
+import com.jackgharris.rmit.cosc2135.core.WhatsAppConsoleEdition;
 import com.jackgharris.rmit.cosc2135.models.UserModel;
 import com.jackgharris.rmit.cosc2135.views.LoginView;
 
 //**** CLASS START ****\\
 //Now we have imported our classes and declared our package name space we start our class contents
-public class LoginController extends Controller{
-
-    //Protected variables inherited from parent, these apply to all controllers and are a standard
-    //-------------------------------------------------------------------------------------------
-    //The Kernel variable stores the instance of core instance of the kernel.
-    //**** protected kernel kernel;
-    //The protected View instance stores our instance of our View, this needs to be created inside the
-    // controllers constructor.
-    //**** protected View view;
-    //Our protected current view variable string, this variable is our memory and tells the controller and
-    // the main system what view to render.
-    //**** protected String currentView;
-    //Finally we have a request variable, this represents the inbound request from the view and stores the
-    // main user input, as well as any additional information that's required by the model or controller.
-    //**** protected Array request;
+public class LoginController{
 
     //Private Class Variables
     //-------------------------------------------------------------------------------------------
     //firstly we declare our Model for this controller, this is our Authentication Model,
     // that retrieves our array of users and validates user logins
     private final UserModel model;
+    // declare our view instance
+    private final LoginView view;
+    //declare our instance of the main application
+    private final WhatsAppConsoleEdition whatsAppConsoleEdition;
+    //declare our current view string
+    private String currentView;
+    //declare our private array request instance variable, stores all data that is sent back from the view
+    private Array request;
+
 
     //**** LOGIN CONTROLLER CONSTRUCTOR METHOD ****\\
     //Our loginController constructor method accepts our main app object and is run at the creation of the
     //LoginController object, in this method we setup and create our View and Model object instances as well
     //as set our default current view and request array.
-    public LoginController(Kernel kernel) {
+    public LoginController(WhatsAppConsoleEdition whatsAppConsoleEdition, UserModel userModel) {
 
-        //set the parsed Kernel instance from the kernel to the protected this.kernel variable
-        this.kernel = kernel;
+        //set the parsed WhatsAppConsoleEdition instance from the whatsAppConsoleEdition to the protected this.whatsAppConsoleEdition variable
+        this.whatsAppConsoleEdition = whatsAppConsoleEdition;
 
         //initialize the request array to a new Array instance and set the array object storage type, in this case strings
         // (This is my own custom array class written for this assessment)
@@ -52,7 +46,7 @@ public class LoginController extends Controller{
         this.view = new LoginView();
 
         //create the model and set it to the protected model variable inherited from the Parent Controller class
-        this.model = (UserModel) this.kernel.getModel("userModel");
+        this.model = userModel;
 
         //set our default currentView method, this the subview that is loaded by default when the controller is called with out any
         //redirect variable being parsed. In this case we are setting it to our welcome subview
@@ -90,21 +84,21 @@ public class LoginController extends Controller{
                 //set our current view to the login view
                 this.currentView = "login";
                 //update the application to show the new view, and provide it the response
-                this.kernel.updateView(response);
+                this.whatsAppConsoleEdition.updateView(response);
 
             //next we check if our input matches 2, if so that means the user would like to register for a new account instead of logging in.
             } else if (input.matches("2")) {
                 //firstly we set the current view to our register sub view
                 this.currentView = "register";
                 //secondly we recall the app update view method to rerender the program with the default response as the view requires no response data
-                this.kernel.updateView(response);
+                this.whatsAppConsoleEdition.updateView(response);
 
             } else {
                 //finally we have our last else check, this catches the input in the even the user has not selected a valid input,
                 //now before we rerender the page we add a response error to parse back to the front end by performing response.add
                 response.add("invalid selection","error");
                 //rerender view with response packaged into the error
-                this.kernel.updateView(response);
+                this.whatsAppConsoleEdition.updateView(response);
             }
         }
 
@@ -129,7 +123,7 @@ public class LoginController extends Controller{
                 response.add("invalid username","error");
             }
             //finally rerender view
-            this.kernel.updateView(response);
+            this.whatsAppConsoleEdition.updateView(response);
         }
 
         //**** LOGIN PASSWORD VIEW PROCESSING ****\\
@@ -141,9 +135,9 @@ public class LoginController extends Controller{
             //from the prior request
             if (this.model.checkPassword((String) this.request.getValue("username"), input)) {
                 //if this is true we set the current user to that user by requesting the user from the Authentication model
-                this.kernel.setCurrentUser(this.model.getUser((String) this.request.getValue("username")));
+                this.whatsAppConsoleEdition.setCurrentUser(this.model.getUser((String) this.request.getValue("username")));
                 //next we set the active controller to the dashboard
-                this.kernel.setActiveController("dashboard");
+                this.whatsAppConsoleEdition.setActiveController("dashboard");
             } else {
                 //else we parse the username back to the front end to be send with the next request
                 response.add(this.request.getValue("username"),"username");
@@ -151,7 +145,7 @@ public class LoginController extends Controller{
                 response.add("invalid password","error");
             }
             //finally we update our view and parse the response we have created
-            this.kernel.updateView(response);
+            this.whatsAppConsoleEdition.updateView(response);
         }
 
         //**** REGISTER USER VIEW PROCESSING ****\\
@@ -186,7 +180,7 @@ public class LoginController extends Controller{
                     response.add("invalid username provided!\nUsernames must be unique and not blank","error");
                 }
                 //lastly we rerender the view and parse it the response we have created.
-               this.kernel.updateView(response);
+               this.whatsAppConsoleEdition.updateView(response);
            }
 
             //REGISTRATION STEP 1 PROCESSING
@@ -209,7 +203,7 @@ public class LoginController extends Controller{
                     response.add("invalid password provided!\nPasswords cannot be blank!","error");
                 }
                 //finally we recall our update view method and parse it our created response
-               this.kernel.updateView(response);
+               this.whatsAppConsoleEdition.updateView(response);
            }
 
             //REGISTRATION STEP 2 PROCESSING
@@ -234,7 +228,7 @@ public class LoginController extends Controller{
                    response.add("invalid fullname provided!\nFullnames cannot be blank!","error");
                }
                //lastly for this step we recall our updateView method and parse our creasted response
-               this.kernel.updateView(response);
+               this.whatsAppConsoleEdition.updateView(response);
            }
 
             //REGISTRATION STEP 3 PROCESSING --FINAL STEP--
@@ -246,7 +240,7 @@ public class LoginController extends Controller{
                     //if 2 was entered set the current view to welcome
                     this.currentView = "welcome";
                     //then we recall our update with method and parse our blank response
-                    this.kernel.updateView(response);
+                    this.whatsAppConsoleEdition.updateView(response);
 
                 //else if they have entered 1 we will process the saving feature of the user
                 }else if(input.matches("1")){
@@ -266,8 +260,8 @@ public class LoginController extends Controller{
                     this.model.createUserAccount(values);
                     //then add the signup message to the response with the correct key for the front end to show
                     response.add("new user created!","signup-message");
-                    //then recall our kernel update view method and parse that response
-                    this.kernel.updateView(response);
+                    //then recall our whatsAppConsoleEdition update view method and parse that response
+                    this.whatsAppConsoleEdition.updateView(response);
                 }else{
                     //else this means we have not entered a valid selection option and we should rerender the view with
                     //the error invalid selection with the values parsed back to the view as well
@@ -280,7 +274,7 @@ public class LoginController extends Controller{
                     //else if our selection parse the same registion step back to the frontend
                     response.add(String.valueOf(registrationStep),"registrationStep");
                     //finally recall our update method and parse the response
-                    this.kernel.updateView(response);
+                    this.whatsAppConsoleEdition.updateView(response);
                 }
 
             }
