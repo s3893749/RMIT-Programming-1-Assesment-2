@@ -11,12 +11,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 //**** START CLASS ****\\
-//Login view extends parent view class, please refer to justification in main view class
 public class LoginView{
-    //declare our buffered reader
+    //declare our buffered reader variable
     BufferedReader br;
 
     public LoginView(){
+        //initialize our buffered reader variable to a new instance of the BufferedReader with a InputSteamReader and system in parsed
         this.br = new BufferedReader(new InputStreamReader(System.in));
     }
 
