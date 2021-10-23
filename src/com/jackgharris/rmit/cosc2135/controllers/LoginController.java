@@ -342,3 +342,5 @@ public class LoginController extends Controller{
         }
     }
 }
+
+//END OF CLASS
