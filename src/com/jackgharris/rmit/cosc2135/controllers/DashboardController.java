@@ -103,6 +103,10 @@ public class DashboardController{
 
                 //else if we reach this statement then the user has not input either 1 or 2 from the options then they have entered
                 //a invalid option, in that case we rerender the view and parse a error
+            }else if(input.matches("3")){
+
+                this.currentView="import";
+                this.whatsAppConsoleEdition.updateView(response);
             }else {
                 //add the invalid selection error to the response
                 response.add("invalid selection", "error");
@@ -217,6 +221,25 @@ public class DashboardController{
                 this.whatsAppConsoleEdition.updateView(response);
             }
         }
+
+        //**** IMPORT MESSAGES PROCESSING ****\\
+        //this method processing the import messages function, this accepts a path from the user and imports the messages
+        //from the CSV into the program
+        if(this.currentView.matches("import")){
+            if(!input.isBlank()){
+                this.messageModel.loadUserMessages(input);
+                if(!this.messageModel.getErrors().arrayKeyExists("error")) {
+                    response.add("csv file imported successfully", "importSuccess");
+                }else{
+                    response.add(this.messageModel.getErrors().getValue("error"),"error");
+                }
+            }else{
+                response.add("file path cannot be empty","error");
+            }
+            this.currentView = "home";
+
+            this.whatsAppConsoleEdition.updateView(response);
+        }
     }
 
     //**** UPDATE VIEW METHOD ****\\
@@ -246,7 +269,7 @@ public class DashboardController{
         //Step 3A: render the home view and get user input request
         if(this.currentView.matches("home")){
             //set the current request to the result of the home view and parse the response build by a processor
-            this.request = ((DashboardView) this.view).home(response);
+            this.request = this.view.home(response);
             //recall the process input method to calculate any new input from the user
             this.processInput();
         }
@@ -255,7 +278,7 @@ public class DashboardController{
         if(this.currentView.matches("allusers")){
 
             //set the current request to the result of the allusers view and parse the response build by a processor
-            this.request = ((DashboardView) this.view).allUsers(response);
+            this.request = this.view.allUsers(response);
             //recall the process input method to calculate any new input from the user
             this.processInput();
         }
@@ -264,7 +287,7 @@ public class DashboardController{
         if(this.currentView.matches("selectUser")){
 
             //set the current request to the result of the selectUser view and parse the response build by a processor
-            this.request = ((DashboardView) this.view).selectUser(response);
+            this.request = this.view.selectUser(response);
             //recall the process input method to calculate any new input from the user
             this.processInput();
         }
@@ -273,7 +296,15 @@ public class DashboardController{
         if(this.currentView.matches("message")){
 
             //set the current request to the result of the message view and parse the response build by a processor
-            this.request = (((DashboardView) this.view)).message(response);
+            this.request = this.view.message(response);
+            //recall the process input method to calculate any new input from the user
+            this.processInput();
+        }
+
+        //Step 3E: render the import messages from file and get the user input
+        if(this.currentView.matches("import")){
+            //set the current request to the result of the message view and parse the response build by a processor
+            this.request = this.view.importMessages(response);
             //recall the process input method to calculate any new input from the user
             this.processInput();
         }
