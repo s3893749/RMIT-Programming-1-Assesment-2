@@ -181,6 +181,10 @@ public class DashboardController extends Controller {
         //finally in our views we come to the message view, this is the view that displays messages to the user regarding the
         //current message chain.
         if(this.currentView.matches("message")){
+            //check if we have any errors in our message model
+            if(this.messageModel.getErrors().arrayKeyExists("error")){
+                response.add(this.messageModel.getErrors().getValue("error"),"error");
+            }
             //firstly we check if the user wants to return back home by pressing one
             if (input.matches("1")) {
                 //if so set the current view to home
