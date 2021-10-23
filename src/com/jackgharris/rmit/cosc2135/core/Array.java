@@ -35,7 +35,7 @@ public class Array {
     //This method allows the calling method to add a object to the array, it accepts a value and a key parsed to it, if self as null the key
     //will default to its current position with in the array, This array add method will only accept objects or children of the object that
     //was specified in the constructor creation of this array.
-    public void add(Object value, String key){
+    public Array add(Object value, String key){
         //step one, check if the provided value matches that of the class type assigned to this array, also check superclass
         //so we detected and accept children classes as well, if so proceed else throw an array storage exception.
         if(this.objectType.equals(value.getClass()) || this.objectType.equals(value.getClass().getSuperclass())){
@@ -62,6 +62,7 @@ public class Array {
             //else as specified above if we provided the wrong object type for storage we throw an ArrayStorageException
             throw new ArrayStoreException();
         }
+        return this;
     }
 
     //**** ARRAY KEY EXISTS METHOD ****\\
