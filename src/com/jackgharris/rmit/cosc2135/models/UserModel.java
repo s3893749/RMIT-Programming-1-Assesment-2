@@ -4,12 +4,11 @@ package com.jackgharris.rmit.cosc2135.models;
 //**** IMPORT PACKAGES ****\\
 //Here we import all the relevant packages that we will be referencing, calling and accessing in this class.
 import com.jackgharris.rmit.cosc2135.core.Array;
-import com.jackgharris.rmit.cosc2135.core.Model;
 import java.io.*;
 
 //**** START CLASS ****\\
 //refer to justification in Model class for justification on the use of inheritance for this class
-public class UserModel extends Model {
+public class UserModel{
 
     //Private Class Variables
     //-------------------------------------------------------------------------------------------
