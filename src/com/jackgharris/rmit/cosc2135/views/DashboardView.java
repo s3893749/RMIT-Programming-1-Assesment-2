@@ -34,6 +34,11 @@ public class DashboardView{
         //show a successfully logged in alert with the color green
         this.showAlert("Successfully Logged In!",TextColors.textGreen);
 
+        //check if we have a import success key
+        if(response.arrayKeyExists("importSuccess")){
+            this.showAlert((String) response.getValue("importSuccess"), TextColors.textGreen);
+        }
+
         //check if we have any errors
         if(response.arrayKeyExists("error")){
             //if so show the errors and set the color to red for the error alert
@@ -42,7 +47,8 @@ public class DashboardView{
 
         //show the main menu
         System.out.println("1) Message user");
-        System.out.println("2) Logout\n");
+        System.out.println("2) Logout");
+        System.out.println("3) Import from file\n");
 
         //show the footer
         System.out.println("Whats App Console Edition, Created by Jack Harris");
@@ -204,6 +210,37 @@ public class DashboardView{
 
         //finally return the request back to the controller
         return request;
+    }
+
+    //**** IMPORT MESSAGES FROM EXISTING FILE ****\\
+    //This method allows you to import messages from an existing file into this application
+    public Array importMessages(Array response){
+
+        //create the new request array, this is returned back from the view to the controller
+        Array request = new Array(String.class);
+
+        //show the title messages and append the target user of your message
+        this.showTitle("Import Messages: ");
+
+        //ask the user to enter the file path of the message they wish to import
+        System.out.println("\nPlease enter the file path of the messages.csv you wish to import");
+
+        //check if we have any errors
+        if(response.arrayKeyExists("error")){
+            //if so show the errors and set the color to red for the error alert
+            this.showAlert((String) response.getValue("error"), TextColors.textRed);
+        }
+
+        try {
+            //try setting the input to the input key value in the request response
+            request.add(this.br.readLine(),"input");
+        } catch (IOException e) {
+            //if that fails for any reason add the error to the request instead under the error key
+            request.add(e.toString(),"error");
+        }      //try and get the input from the user via the buffered reader using system.in
+
+        return request;
+
     }
 
     //**** SHOW ALERT HELPER METHOD ****\\
