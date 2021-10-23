@@ -17,14 +17,11 @@ public class MessageModel{
 
     //**** CONSTRUCTOR ****\\
     public MessageModel(){
-
-        //initialize our messages array to a new Array of the Message class
-        this.messages = new Array(Message.class);
         //initialize our errors array to a new array of the Strings class
         this.errors = new Array(String.class);
+        //initialize our messages array to a new Array of the Message class
+        this.messages = this.loadUserMessages("message.csv");
 
-        //finally call our loadUserMessages function
-        this.loadUserMessages();
     }
 
     //**** NEW MESSAGE METHOD ****\\
@@ -68,14 +65,15 @@ public class MessageModel{
 
     //**** LOAD USER MESSAGES ****\\
     //this method loads the users messages from the message.csv file into the class this.messages array
-    private void loadUserMessages() {
-        //specify the path, in this case simply message.csv
-        String filePath = "message.csv";
+    public Array loadUserMessages(String path) {
+
+        //create a new array of message
+        Array messages = new Array(Message.class);
 
         //open a try catch loop to catch any errors
         try {
             //create a new instance of the buffered reader and parse it the file reader aimed at that file path
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            BufferedReader br = new BufferedReader(new FileReader(path));
             //create the String variable line
             String line;
 
@@ -86,18 +84,22 @@ public class MessageModel{
                     //else split the line by the , into a values array
                     String[] values = line.split(",");
                     //create a new message based on that values array
-                    this.messages.add(new Message(values[0],values[1],values[2],Long.parseLong(values[3])),"{{message}}");
+                    messages.add(new Message(values[0],values[1],values[2],Long.parseLong(values[3])),"{{message}}");
                 }
             }
 
             //once we have loaded all that then close the buffered reader
             br.close();
 
+            if(this.errors.arrayKeyExists("error")){
+            this.errors.delete("error");
+            }
         } catch (IOException e) {
             //finally if we catch a error add it to the errors array and append the e.toString error
-            this.errors.add("Cannot load message.csv file, please check you have a csv file in this folder called '" +
-                    "message.csv' and restart the program\nJava Error: "+e.toString(),"error");
+            this.errors.add("Cannot load message.csv file, please check your path file and try again\nPath:"+path+"\nJava Error: "+e.toString(),"error");
         }
+
+        return messages;
 
     }
 
