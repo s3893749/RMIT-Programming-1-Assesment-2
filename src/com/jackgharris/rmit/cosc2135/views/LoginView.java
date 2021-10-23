@@ -5,12 +5,20 @@ package com.jackgharris.rmit.cosc2135.views;
 //Here we import all the relevant packages that we will be referencing, calling and accessing in this class.
 import com.jackgharris.rmit.cosc2135.core.Array;
 import com.jackgharris.rmit.cosc2135.core.TextColors;
-import com.jackgharris.rmit.cosc2135.core.View;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 //**** START CLASS ****\\
 //Login view extends parent view class, please refer to justification in main view class
-public class LoginView extends View {
+public class LoginView{
+    //declare our buffered reader
+    BufferedReader br;
+
+    public LoginView(){
+        this.br = new BufferedReader(new InputStreamReader(System.in));
+    }
 
     //**** WELCOME SCREEN VIEW METHOD ****\\
     //accepts a response from controller in the parameter and displays the content of the response combined with the welcome scree
