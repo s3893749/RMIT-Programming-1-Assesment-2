@@ -309,28 +309,28 @@ public class LoginController{
         //Step 3 A: Render and get Input from the welcome view
         if(this.currentView.matches("welcome")) {
             //set the input to the response of the view and parse the view method the response
-            this.request = ((LoginView) this.view).welcomeScreen(response);
+            this.request = (this.view).welcomeScreen(response);
             //call this input process for this method to process and validate the input from the user
             this.processInput();
 
         //Step 3 B: Render and get Input from the login view (username)
         }else if(this.currentView.matches("login")){
             //set the input to the response of the view and parse the view method the response
-            this.request = ((LoginView) this.view).loginScreenUsername(response);
+            this.request = (this.view).loginScreenUsername(response);
             //call this input process for this method to process and validate the input from the user
             this.processInput();
 
         //Step 3 C: Render and get Input from the login view (password)
         }else if(this.currentView.matches("loginPassword")){
             //set the input to the response of the view and parse the view method the response
-            this.request = ((LoginView) this.view).loginScreenPassword(response);
+            this.request = (this.view).loginScreenPassword(response);
             //call this input process for this method to process and validate the input from the user
             this.processInput();
 
         //Step 3 D: Render and get Input from the registration view
         }else if(this.currentView.matches("register")){
             //set the input to the response of the view and parse the view method the response
-            this.request = ((LoginView) this.view).register(response);
+            this.request = (this.view).register(response);
             //call this input process for this method to process and validate the input from the user
             this.processInput();
         }

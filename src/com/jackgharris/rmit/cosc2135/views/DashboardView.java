@@ -11,12 +11,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 //**** START CLASS ****\\
-//Dashboard view class, extends the main view parent class, refer to its class for justification and comments
 public class DashboardView{
 
+    //declare our buffered reader variable
     BufferedReader br;
 
     public DashboardView(){
+        //initialize our buffered reader variable to a new instance of the BufferedReader with a InputSteamReader and system in parsed
         this.br = new BufferedReader(new InputStreamReader(System.in));
     }
 
