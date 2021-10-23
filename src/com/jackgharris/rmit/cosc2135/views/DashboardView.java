@@ -5,12 +5,20 @@ package com.jackgharris.rmit.cosc2135.views;
 //Here we import all the relevant packages that we will be referencing, calling and accessing in this class.
 import com.jackgharris.rmit.cosc2135.core.Array;
 import com.jackgharris.rmit.cosc2135.core.TextColors;
-import com.jackgharris.rmit.cosc2135.core.View;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 //**** START CLASS ****\\
 //Dashboard view class, extends the main view parent class, refer to its class for justification and comments
-public class DashboardView extends View {
+public class DashboardView{
+
+    BufferedReader br;
+
+    public DashboardView(){
+        this.br = new BufferedReader(new InputStreamReader(System.in));
+    }
 
     //**** HOME VIEW ****\\
     //This is the home page once the user is logged in
