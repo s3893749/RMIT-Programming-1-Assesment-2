@@ -2,7 +2,6 @@
 package com.jackgharris.rmit.cosc2135.core;
 
 //**** CLASS START ****\\
-//Now we have imported our classes and declared our package name space we start our class contents
 
 //Abstract class justification:
 //abstract classes simple indicate that a abstract method must be implement or exist in a child class, this means any
