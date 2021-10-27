@@ -5,7 +5,7 @@ package com.jackgharris.rmit.cosc2135.controllers;
 
 //**** IMPORT PACKAGES ****\\
 //Here we import all the relevant packages that we will be referencing, calling and accessing in this class.
-import com.jackgharris.rmit.cosc2135.core.Array;
+import com.jackgharris.rmit.cosc2135.core.CustomArray;
 import com.jackgharris.rmit.cosc2135.core.WhatsAppConsoleEdition;
 import com.jackgharris.rmit.cosc2135.models.MessageModel;
 import com.jackgharris.rmit.cosc2135.models.UserModel;
@@ -30,7 +30,7 @@ public class DashboardController{
     //declare our current view string
     private String currentView;
     //declare our private array request instance variable, stores all data that is sent back from the view
-    private Array request;
+    private CustomArray request;
 
 
     //**** DASHBOARD CONTROLLER CONSTRUCTOR METHOD ****\\
@@ -39,7 +39,7 @@ public class DashboardController{
     public DashboardController(WhatsAppConsoleEdition whatsAppConsoleEdition, UserModel userModel, MessageModel messageModel) {
 
         //initialize the request array with a new Custom array set to accepts the String.class and children of it
-        this.request = new Array(String.class);
+        this.request = new CustomArray(String.class);
         //initialize the whatsAppConsoleEdition that's been parsed in via the constructor to the class variable of whatsAppConsoleEdition, this allows us
         //to call whatsAppConsoleEdition functions such as update view.
         this.whatsAppConsoleEdition = whatsAppConsoleEdition;
@@ -71,7 +71,7 @@ public class DashboardController{
         String input = (String) this.request.getValue("input");
 
         //Secondly we create our response array that we will be returning back to the view
-        Array response = new Array(String.class);
+        CustomArray response = new CustomArray(String.class);
 
         //**** HOME VIEW PROCESSING ****\\
         //this if statement process the input logic if our current view is our home view
@@ -246,14 +246,14 @@ public class DashboardController{
     //This method is called if this controller is active and any controller has called the this.app.updateView method, this triggers
     //a re rendering of the view in the applicable controller, Update View takes a response array of strings as a input but can also
     //receive a null input if no data needs to be send to the front end.
-    public void updateView(Array response) {
+    public void updateView(CustomArray response) {
         //Step 1:
         //firstly we check if we have a valid response or if no response was parsed
         if(response == null){
             //if no response has been parsed then we create a dummy array for Strings that is sent to the relevant review, this is
             //important as the views may have variable display options that check if a error key exists before displaying it, parsing
             //null with out initializing this blank array will cause a fatal error.
-            response = new Array(String.class);
+            response = new CustomArray(String.class);
         }
         //Step 2:
         //Next we check if a redirect key has been parsed to this controller via the response, this is marked with the key "redirect"
