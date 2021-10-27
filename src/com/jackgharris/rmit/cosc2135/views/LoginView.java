@@ -3,7 +3,7 @@ package com.jackgharris.rmit.cosc2135.views;
 
 //**** IMPORT PACKAGES ****\\
 //Here we import all the relevant packages that we will be referencing, calling and accessing in this class.
-import com.jackgharris.rmit.cosc2135.core.Array;
+import com.jackgharris.rmit.cosc2135.core.CustomArray;
 import com.jackgharris.rmit.cosc2135.core.TextColors;
 
 import java.io.BufferedReader;
@@ -22,10 +22,10 @@ public class LoginView{
 
     //**** WELCOME SCREEN VIEW METHOD ****\\
     //accepts a response from controller in the parameter and displays the content of the response combined with the welcome scree
-    public Array welcomeScreen(Array response) {
+    public CustomArray welcomeScreen(CustomArray response) {
 
         //create the new request array, this is returned back from the view to the controller
-        Array request = new Array(String.class);
+        CustomArray request = new CustomArray(String.class);
 
         //display the title of this view using the helper showTitle method
         this.showTitle("Whats App Console Edition");
@@ -70,10 +70,10 @@ public class LoginView{
 
     //**** LOGIN SCREEN VIEW METHOD ****\\
     //this view returns the username in the request data that the user wishes to login with
-    public Array loginScreenUsername(Array response){
+    public CustomArray loginScreenUsername(CustomArray response){
 
         //create the new request array, this is returned back from the view to the controller
-        Array request = new Array(String.class);
+        CustomArray request = new CustomArray(String.class);
 
         //show the title login
         this.showTitle("Login:");
@@ -102,10 +102,10 @@ public class LoginView{
 
     //**** LOGIN SCREEN PASSWORD VIEW METHOD ****\\
     //this screen allows the user to enter a password and is the second step of the login process
-    public Array loginScreenPassword(Array response){
+    public CustomArray loginScreenPassword(CustomArray response){
 
         //create the new request array, this is returned back from the view to the controller
-        Array request = new Array(String.class);
+        CustomArray request = new CustomArray(String.class);
 
         //show the login title using the helper method
         this.showTitle("Login:");
@@ -138,10 +138,10 @@ public class LoginView{
     //**** LOGIN SCREEN PASSWORD VIEW METHOD ****\\
     //this view renders the individual sections of the registration process in sequence based on a current step value that
     //is tracked between the view and the controller
-    public Array register(Array response){
+    public CustomArray register(CustomArray response){
 
         //create the new request array, this is returned back from the view to the controller
-        Array request = new Array(String.class);
+        CustomArray request = new CustomArray(String.class);
 
         //initialize the currentStep value to 0, this is overridden if the controller returns a higher step
         int currentStep = 0;

@@ -5,7 +5,7 @@ package com.jackgharris.rmit.cosc2135.controllers;
 
 //**** IMPORT PACKAGES ****\\
 //Here we import all the relevant packages that we will be referencing, calling and accessing in this class.
-import com.jackgharris.rmit.cosc2135.core.Array;
+import com.jackgharris.rmit.cosc2135.core.CustomArray;
 import com.jackgharris.rmit.cosc2135.core.WhatsAppConsoleEdition;
 import com.jackgharris.rmit.cosc2135.models.UserModel;
 import com.jackgharris.rmit.cosc2135.views.LoginView;
@@ -26,7 +26,7 @@ public class LoginController{
     //declare our current view string
     private String currentView;
     //declare our private array request instance variable, stores all data that is sent back from the view
-    private Array request;
+    private CustomArray request;
 
 
     //**** LOGIN CONTROLLER CONSTRUCTOR METHOD ****\\
@@ -38,9 +38,9 @@ public class LoginController{
         //set the parsed WhatsAppConsoleEdition instance from the whatsAppConsoleEdition to the protected this.whatsAppConsoleEdition variable
         this.whatsAppConsoleEdition = whatsAppConsoleEdition;
 
-        //initialize the request array to a new Array instance and set the array object storage type, in this case strings
+        //initialize the request array to a new CustomArray instance and set the array object storage type, in this case strings
         // (This is my own custom array class written for this assessment)
-        this.request = new Array(String.class);
+        this.request = new CustomArray(String.class);
 
         //initialize a instance of the the LoginView (Our view for this controller)
         this.view = new LoginView();
@@ -64,7 +64,7 @@ public class LoginController{
         String input = (String) this.request.getValue("input");
 
         //Secondly we create our response array that we will be returning back to the view
-        Array response = new Array(String.class);
+        CustomArray response = new CustomArray(String.class);
 
         //check if the model has throw any error, if so parse the error to the front end and display it
         if(this.model.getErrors().arrayKeyExists("error")){
@@ -247,7 +247,7 @@ public class LoginController{
                     //set the current view back to welcome for a redirect
                     this.currentView = "welcome";
                     //create a array of values that we will use to generate the new user account
-                    Array values = new Array(String.class);
+                    CustomArray values = new CustomArray(String.class);
                     //set the values of each array to the corresponding values we have in the last request
                     values.add(request.getValue("username"),"username");
                     values.add(request.getValue("password"),"password");
@@ -286,14 +286,14 @@ public class LoginController{
     //This method is called if this controller is active and any controller has called the this.app.updateView method, this triggers
     //a re rendering of the view in the applicable controller, Update View takes a response array of strings as a input but can also
     //receive a null input if no data needs to be send to the front end.
-    public void updateView(Array response) {
+    public void updateView(CustomArray response) {
         //Step 1:
         //firstly we check if we have a valid response or if no response was parsed
         if(response == null){
             //if no response has been parsed then we create a dummy array for Strings that is sent to the relevant review, this is
             //important as the views may have variable display options that check if a error key exists before displaying it, parsing
             //null with out initializing this blank array will cause a fatal error.
-            response = new Array(String.class);
+            response = new CustomArray(String.class);
         }
         //Step 2:
         //Next we check if a redirect key has been parsed to this controller via the response, this is marked with the key "redirect"

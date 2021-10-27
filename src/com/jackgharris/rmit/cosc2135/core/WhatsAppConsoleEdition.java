@@ -4,9 +4,7 @@ package com.jackgharris.rmit.cosc2135.core;
 //**** IMPORT PACKAGES ****\\
 //Here we import all the relevant packages that we will be referencing, calling and accessing in this class.
 import com.jackgharris.rmit.cosc2135.controllers.*;
-import com.jackgharris.rmit.cosc2135.models.MessageModel;
-import com.jackgharris.rmit.cosc2135.models.User;
-import com.jackgharris.rmit.cosc2135.models.UserModel;
+import com.jackgharris.rmit.cosc2135.models.*;
 
 //**** START CLASS ****\\
 public class WhatsAppConsoleEdition {
@@ -47,7 +45,7 @@ public class WhatsAppConsoleEdition {
 
     //**** UPDATE VIEW ****\\
     //calls the update method of the view that is currently active with in the program
-    public void updateView(Array response){
+    public void updateView(CustomArray response){
        //check if the active view matches the login view
        if(this.activeController.matches("login")){
            //call the updateView and parse the response

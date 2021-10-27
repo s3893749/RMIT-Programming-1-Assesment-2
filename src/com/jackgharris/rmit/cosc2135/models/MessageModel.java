@@ -3,7 +3,8 @@ package com.jackgharris.rmit.cosc2135.models;
 
 //**** IMPORT PACKAGES ****\\
 //Here we import all the relevant packages that we will be referencing, calling and accessing in this class.
-import com.jackgharris.rmit.cosc2135.core.Array;
+import com.jackgharris.rmit.cosc2135.core.CustomArray;
+
 import java.io.*;
 
 //**** START CLASS ****\\
@@ -12,14 +13,14 @@ public class MessageModel{
     //Private Class Variables
     //-------------------------------------------------------------------------------------------
     //Here we declare our class wide instance variables, in this case we have two arrays, messages and errors, both are final
-    private final Array messages;
-    private final Array errors;
+    private final CustomArray messages;
+    private final CustomArray errors;
 
     //**** CONSTRUCTOR ****\\
     public MessageModel(){
         //initialize our errors array to a new array of the Strings class
-        this.errors = new Array(String.class);
-        //initialize our messages array to a new Array of the Message class
+        this.errors = new CustomArray(String.class);
+        //initialize our messages array to a new CustomArray of the Message class
         this.messages = this.loadUserMessages("message.csv");
 
     }
@@ -27,7 +28,7 @@ public class MessageModel{
     //**** NEW MESSAGE METHOD ****\\
     //this method takes the input from the view parsed via the controller to create a new message,
     public void newMessage(String sender, String reciver, String message){
-        //add a new message to the Array of messages, and parse it our variables, for the key set it to the {{message}} target
+        //add a new message to the CustomArray of messages, and parse it our variables, for the key set it to the {{message}} target
         //plus append the unix time in seconds to avoid conflicts
         this.messages.add(new Message(sender,reciver,message,System.currentTimeMillis()),"{{message}}"+System.currentTimeMillis());
         //finally save the userMessages to file with the private save function
@@ -37,7 +38,7 @@ public class MessageModel{
     //**** GET USER MESSAGE ****\\
     //this method accepts the username of the send and the username of the receiver as well as the response array, this method
     //will add all the messages to the response array and then returns it to the controller
-    public Array getMessages(String userSender, String userReciver,Array response){
+    public CustomArray getMessages(String userSender, String userReciver, CustomArray response){
 
         //create a int counter variable represented by i
         int i =0;
@@ -65,10 +66,10 @@ public class MessageModel{
 
     //**** LOAD USER MESSAGES ****\\
     //this method loads the users messages from the message.csv file into the class this.messages array
-    public Array loadUserMessages(String path) {
+    public CustomArray loadUserMessages(String path) {
 
         //create a new array of message
-        Array messages = new Array(Message.class);
+        CustomArray messages = new CustomArray(Message.class);
 
         //open a try catch loop to catch any errors
         try {
@@ -150,7 +151,7 @@ public class MessageModel{
 
     //**** GET ERRORS METHOD ****\\
     //returns the array of erros to a calling controller
-    public Array getErrors(){
+    public CustomArray getErrors(){
         return this.errors;
     }
 }

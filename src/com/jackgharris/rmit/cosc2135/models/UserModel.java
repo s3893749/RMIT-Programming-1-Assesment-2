@@ -3,7 +3,8 @@ package com.jackgharris.rmit.cosc2135.models;
 
 //**** IMPORT PACKAGES ****\\
 //Here we import all the relevant packages that we will be referencing, calling and accessing in this class.
-import com.jackgharris.rmit.cosc2135.core.Array;
+import com.jackgharris.rmit.cosc2135.core.CustomArray;
+
 import java.io.*;
 
 //**** START CLASS ****\\
@@ -13,15 +14,15 @@ public class UserModel{
     //-------------------------------------------------------------------------------------------
     //Here we declare our class wide instance variables, in this case we have two arrays, users and errors, both are final
     //users array, is final and created once by the constructor
-    private final Array users;
+    private final CustomArray users;
     //users array, is final and created once by the constructor
-    private final Array errors;
+    private final CustomArray errors;
 
     //**** CONSTRUCTOR ****\\
     //main constructor method for the UserModel class
     public UserModel() {
         //initialize the Errors array as a new array of Strings
-        this.errors = new Array(String.class);
+        this.errors = new CustomArray(String.class);
         //initialize the Users array to the value of the private loadUserAccounts method
         this.users = this.loadUserAccounts();
     }
@@ -130,7 +131,7 @@ public class UserModel{
 
     //**** CREATE NEW USER ACCOUNT ****\\
     //this method accepts an array of account data that has been validated by the controller and uses it to create the object
-    public void createUserAccount(Array account){
+    public void createUserAccount(CustomArray account){
         //create a new user object in the this.users array with the key as the users username
         this.users.add(new User((String)account.getValue("username"),(String)account.getValue("password"),(String)account.getValue("fullname"),Integer.parseInt((String) account.getValue("registrationDate")),Boolean.parseBoolean((String) account.getValue("isAdmin"))),(String) account.getValue("username"));
         //update the accounts CSV file on new account creation with the private this.saveUserAccounts method
@@ -139,13 +140,13 @@ public class UserModel{
 
     //**** LOAD USER ACCOUNTS ****\\
     //this method loads the user accounts from the users.csv file
-    private Array loadUserAccounts() {
+    private CustomArray loadUserAccounts() {
 
         //specify path location
         String filePath = "users.csv";
 
         //create an array of users with the accepting object the User.class
-        Array users = new Array(User.class);
+        CustomArray users = new CustomArray(User.class);
 
         //create a try catch loop to catch any errors
         try {
@@ -180,7 +181,7 @@ public class UserModel{
 
     //**** SAVE USER ACCOUNTS ****\\
     //this method accepts an array of user accounts and saves them to a file
-    private void saveUserAccounts(Array accounts){
+    private void saveUserAccounts(CustomArray accounts){
 
         //set the tag for the file
         String tag = "Main Users CSV file";
@@ -240,7 +241,7 @@ public class UserModel{
 
     //**** GET ERRORS ****\\
     //this method returns an array of errors back to the controller when called
-    public Array getErrors(){
+    public CustomArray getErrors(){
         //return this errors
         return this.errors;
     }
