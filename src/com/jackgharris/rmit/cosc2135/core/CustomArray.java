@@ -2,8 +2,8 @@ package com.jackgharris.rmit.cosc2135.core;
 
 //**** CUSTOM ARRAY CLASS ****\\
 //This class implements easy to use arrays based on the the requirement to use only basic Java arrays for this assessment,
-//this class adds and mimics similar features but not all features found in the Java Array lists and Hashmaps.
-public class Array {
+//this class adds and mimics similar features but not all features found in the Java CustomArray lists and Hashmaps.
+public class CustomArray {
 
     //private Object type variable, is used to restrict the objects that can be added to this array
     private final Object objectType;
@@ -19,7 +19,7 @@ public class Array {
     //**** ARRAY CONSTRUCTOR METHOD ****\\
     //this method is called when the array is created and accepts an object to use as the set object type for this array, arrays can only
     //store one type of object, for example, Controller or Strings, but not both.
-    public Array(Object object){
+    public CustomArray(Object object){
         //set this arrays object type to the object that's been passed.
         this.objectType = object;
         //create the values and keys array ready for use, these are auto expanding so 0 is fine for now!
@@ -35,7 +35,7 @@ public class Array {
     //This method allows the calling method to add a object to the array, it accepts a value and a key parsed to it, if self as null the key
     //will default to its current position with in the array, This array add method will only accept objects or children of the object that
     //was specified in the constructor creation of this array.
-    public Array add(Object value, String key){
+    public CustomArray add(Object value, String key){
         //step one, check if the provided value matches that of the class type assigned to this array, also check superclass
         //so we detected and accept children classes as well, if so proceed else throw an array storage exception.
         if(this.objectType.equals(value.getClass()) || this.objectType.equals(value.getClass().getSuperclass())){
@@ -45,7 +45,7 @@ public class Array {
                     //if the key is null (not parsed), set the key to the current index count
                     key = String.valueOf(this.countPermanent);
                 }
-                //next check if we have room in our array to store this new entry, if so skip this, else run the expand Array private function
+                //next check if we have room in our array to store this new entry, if so skip this, else run the expand CustomArray private function
                 if (this.count >= this.values.length) {
                     this.expandArray();
                 }
