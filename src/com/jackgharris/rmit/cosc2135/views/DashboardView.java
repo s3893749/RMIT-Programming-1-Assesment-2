@@ -3,7 +3,7 @@ package com.jackgharris.rmit.cosc2135.views;
 
 //**** IMPORT PACKAGES ****\\
 //Here we import all the relevant packages that we will be referencing, calling and accessing in this class.
-import com.jackgharris.rmit.cosc2135.core.Array;
+import com.jackgharris.rmit.cosc2135.core.CustomArray;
 import com.jackgharris.rmit.cosc2135.core.TextColors;
 
 import java.io.BufferedReader;
@@ -23,10 +23,10 @@ public class DashboardView{
 
     //**** HOME VIEW ****\\
     //This is the home page once the user is logged in
-    public Array home(Array response){
+    public CustomArray home(CustomArray response){
 
         //create the new request array, this is returned back from the view to the controller
-        Array request = new Array(String.class);
+        CustomArray request = new CustomArray(String.class);
 
         //show the view title of welcome and append the usersname of the current user
         this.showTitle("Welcome: "+response.getValue("username"));
@@ -68,10 +68,10 @@ public class DashboardView{
 
     //**** ALL USERS VIEW ****\\
     //this view shows you a list of all the users in the application that you can message
-    public Array allUsers(Array response){
+    public CustomArray allUsers(CustomArray response){
 
         //create the new request array, this is returned back from the view to the controller
-        Array request = new Array(String.class);
+        CustomArray request = new CustomArray(String.class);
 
         //show the title for this page as all users:
         this.showTitle("All Users:");
@@ -120,10 +120,10 @@ public class DashboardView{
 
     //**** SELECT USER VIEW ****\\
     //this view asks you to select a user to message, returns an error if its not a valid username
-    public Array selectUser(Array response){
+    public CustomArray selectUser(CustomArray response){
 
         //create the new request array, this is returned back from the view to the controller
-        Array request = new Array(String.class);
+        CustomArray request = new CustomArray(String.class);
 
         //show the title for this page as all users:
         this.showTitle("Select User to Message: ");
@@ -152,10 +152,10 @@ public class DashboardView{
 
     //**** MESSAGE VIEW ****\\
     //this view allows you to view and write messages to the selected user
-    public Array message(Array response){
+    public CustomArray message(CustomArray response){
 
         //create the new request array, this is returned back from the view to the controller
-        Array request = new Array(String.class);
+        CustomArray request = new CustomArray(String.class);
 
         //re-add the message target to the request to be used in the next response if needed
         request.add(response.getValue("messageTarget"),"messageTarget");
@@ -214,10 +214,10 @@ public class DashboardView{
 
     //**** IMPORT MESSAGES FROM EXISTING FILE ****\\
     //This method allows you to import messages from an existing file into this application
-    public Array importMessages(Array response){
+    public CustomArray importMessages(CustomArray response){
 
         //create the new request array, this is returned back from the view to the controller
-        Array request = new Array(String.class);
+        CustomArray request = new CustomArray(String.class);
 
         //show the title messages and append the target user of your message
         this.showTitle("Import Messages: ");
