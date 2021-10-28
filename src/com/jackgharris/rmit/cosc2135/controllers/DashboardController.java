@@ -73,6 +73,11 @@ public class DashboardController{
         //Secondly we create our response array that we will be returning back to the view
         CustomArray response = new CustomArray(String.class);
 
+        //parse the admin status key back to the frontend
+        if(this.whatsAppConsoleEdition.getCurrentUser().getAdminStatus()){
+            response.add("true","isAdmin");
+        }
+
         //**** HOME VIEW PROCESSING ****\\
         //this if statement process the input logic if our current view is our home view
         if (this.currentView.matches("home")){
@@ -225,16 +230,20 @@ public class DashboardController{
         //**** IMPORT MESSAGES PROCESSING ****\\
         //this method processing the import messages function, this accepts a path from the user and imports the messages
         //from the CSV into the program
-        if(this.currentView.matches("import")){
-            if(!input.isBlank()){
-                this.messageModel.loadUserMessages(input);
-                if(!this.messageModel.getErrors().arrayKeyExists("error")) {
-                    response.add("csv file imported successfully", "importSuccess");
-                }else{
-                    response.add(this.messageModel.getErrors().getValue("error"),"error");
+        if(this.currentView.matches("import") ){
+            if(this.whatsAppConsoleEdition.getCurrentUser().getAdminStatus()) {
+                if (!input.isBlank()) {
+                    this.messageModel.loadUserMessages(input);
+                    if (!this.messageModel.getErrors().arrayKeyExists("error")) {
+                        response.add("csv file imported successfully", "importSuccess");
+                    } else {
+                        response.add(this.messageModel.getErrors().getValue("error"), "error");
+                    }
+                } else {
+                    response.add("file path cannot be empty", "error");
                 }
             }else{
-                response.add("file path cannot be empty","error");
+                response.add("authentication error: import message function requires administration permissions", "error");
             }
             this.currentView = "home";
 
