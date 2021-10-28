@@ -86,26 +86,6 @@ public class CustomArray {
         return outcome;
     }
 
-    //**** IN ARRAY METHOD ****\\
-    //This method will accept a value and check if that exists in the array, Note we are not talking about keys here but the values themselves, returns true or false.
-    public boolean inArray(Object value){
-        //firstly we create a outcome variable and set it to false, this will be returned at the end of the check if no value in the array is found
-        boolean outcome = false;
-        //now we create our i variable to act as our counter
-        int i = 0;
-        //next we process our while loop to see if we have a value matching the value provided
-        while(i < this.count){
-            //if we have a match set the outcome to true, else leave it as false
-            if(this.values[i].equals(value)){
-                outcome = true;
-            }
-            //if we dont have a match on this value, increase our i counter and try checking the next integration
-            i++;
-        }
-        //else finally we return the outcome of the inArray check.
-        return outcome;
-    }
-
     //**** GET VALUE METHOD ****\\
     //This public method accepts a key in the form of a string and if have a value matching that key in the array we will return it, else we return false.
     public Object getValue(String key){
