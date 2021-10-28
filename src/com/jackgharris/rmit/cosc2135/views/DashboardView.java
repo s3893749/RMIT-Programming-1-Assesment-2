@@ -222,16 +222,21 @@ public class DashboardView{
         //create the new request array, this is returned back from the view to the controller
         CustomArray request = new CustomArray(String.class);
 
-        //show the title messages and append the target user of your message
-        this.showTitle("Import Messages: ");
+        if(response.arrayKeyExists("isAdmin")) {
 
-        //ask the user to enter the file path of the message they wish to import
-        System.out.println("\nPlease enter the file path of the messages.csv you wish to import");
+            //show the title messages and append the target user of your message
+            this.showTitle("Import Messages: ");
 
-        //check if we have any errors
-        if(response.arrayKeyExists("error")){
-            //if so show the errors and set the color to red for the error alert
-            this.showAlert((String) response.getValue("error"), TextColors.textRed);
+            //ask the user to enter the file path of the message they wish to import
+            System.out.println("\nPlease enter the file path of the messages.csv you wish to import");
+
+            //check if we have any errors
+            if (response.arrayKeyExists("error")) {
+                //if so show the errors and set the color to red for the error alert
+                this.showAlert((String) response.getValue("error"), TextColors.textRed);
+            }
+        }else{
+            this.showAlert("authentication error: import message function requires administration permissions", TextColors.textRed);
         }
 
         try {
