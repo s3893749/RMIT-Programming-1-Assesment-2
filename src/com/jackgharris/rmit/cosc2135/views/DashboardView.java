@@ -48,7 +48,10 @@ public class DashboardView{
         //show the main menu
         System.out.println("1) Message user");
         System.out.println("2) Logout");
-        System.out.println("3) Import from file\n");
+        if(response.arrayKeyExists("isAdmin")) {
+            System.out.println("3) Import from file");
+        }
+        System.out.println("\n");
 
         //show the footer
         System.out.println("Whats App Console Edition, Created by Jack Harris");
