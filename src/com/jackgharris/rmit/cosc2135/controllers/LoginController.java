@@ -138,6 +138,10 @@ public class LoginController{
                 this.whatsAppConsoleEdition.setCurrentUser(this.model.getUser((String) this.request.getValue("username")));
                 //next we set the active controller to the dashboard
                 this.whatsAppConsoleEdition.setActiveController("dashboard");
+                //add the admin status to the response
+                if(this.whatsAppConsoleEdition.getCurrentUser().getAdminStatus()) {
+                    response.add("true", "isAdmin");
+                }
             } else {
                 //else we parse the username back to the front end to be send with the next request
                 response.add(this.request.getValue("username"),"username");
